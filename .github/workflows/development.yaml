@@ -29,10 +29,10 @@ jobs:
           cd ./frontend 
           npm run test
  
-#      - name: Build frontend
-#        run: |
-#          cd ./frontend 
-#          npm run build
+      - name: Build frontend
+        run: |
+          cd ./frontend 
+          npm run build
 
       - name: Install backend dependencies
         run: |
