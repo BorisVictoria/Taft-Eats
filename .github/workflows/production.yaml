@@ -1,0 +1,46 @@
+name: Production Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        run: |
+          cd ./frontend
+          npm ci
+
+      - name: Run frontend tests
+        run: |
+          cd ./frontend 
+          npm run test
+ 
+#      - name: Build frontend
+#        run: |
+#          cd ./frontend 
+#          npm run build
+
+      - name: Install backend dependencies
+        run: |
+          cd ./backend
+          npm ci
+
+      - name: Run backend tests
+        run: |
+          cd ./backend 
+          npm run test
+       
