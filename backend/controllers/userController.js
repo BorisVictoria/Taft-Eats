@@ -1,3 +1,4 @@
+const review = require('../models/review.js')
 const userService = require('../services/userService.js')
 
 const extractFilePath = (filePath) => {
@@ -122,6 +123,22 @@ const checkUsername = async (req, res) => {
     }
 }
 
+const checkToken = (req, res) => {
+    const token = req.header('Authorization')?.split(' ')[1] // Get token from Authorization header
+    if (!token) {
+        return res.status(401).json({ message: 'No token provided, authorization denied.' })
+    }
+
+
+    try {
+        userService.checkTokenValidity(token);
+        res.status(200).json({ message: 'Token is valid' })
+    } catch (err) {
+        console.log(err);
+        res.status(401).json({ message: 'Token has expired or is invalid.' })
+    }
+}
+
 module.exports = {
     createUser,
     loginUser,
@@ -129,5 +146,6 @@ module.exports = {
     updateUser,
     deleteUser,
     logoutUser,
-    checkUsername
+    checkUsername,
+    checkToken
 }

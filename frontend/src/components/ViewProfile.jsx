@@ -17,6 +17,7 @@ const UserProfile = () => {
     const [isEditReviewDialogOpen, setIsEditReviewDialogOpen] = useState(false)
     const [isDeleteReviewDialogOpen, setIsDeleteReviewDialogOpen] = useState(false)
     const [currentReview, setCurrentReview] = useState(null)
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
     const initialFormData = {
         name: '',
@@ -38,8 +39,6 @@ const UserProfile = () => {
     const [formData, setFormData] = useState(initialFormData)
     const [reviews, setReviews] = useState([])
 
-    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
-
     const fetchUserData = async () => {
         if (!userId) return // added layer of checking
 
@@ -55,7 +54,7 @@ const UserProfile = () => {
             }
 
             const data = await response.json()
-            data['avatarUrl'] = `?${url}/${data['avatar']}`
+            data['avatarUrl'] = `${url}/${data['avatar']}`
             data['newAvatarUrl'] = `${url}/${data['avatar']}`
             data['newUsername'] = data['username']
             data['newBio'] = data['bio']
@@ -87,6 +86,7 @@ const UserProfile = () => {
     useEffect(() => {
         fetchUserData()
         console.log('done')
+        console.log(reviews)
     }, [])
 
     return (

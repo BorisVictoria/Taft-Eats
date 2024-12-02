@@ -21,6 +21,7 @@ const hashPasswords = async (entities) => {
 
 const seedDatabase = async () => {
     try {
+        
         await User.deleteMany()
         await Restaurant.deleteMany()
         await Review.deleteMany()
@@ -39,11 +40,19 @@ const seedDatabase = async () => {
             const review = createdReviews[i]
 
             if (review) {
-                await Restaurant.findByIdAndUpdate(restaurant._id, {
+                const restaurantParent = await Restaurant.findByIdAndUpdate(restaurant._id, {
                     $push: { reviews: review._id }
                 })
-                await User.findOneAndUpdate({ username: review.username }, { $push: { reviews: review._id } })
+                const user = await User.findOneAndUpdate({ username: review.username }, { $push: { reviews: review._id } })
+                await Review.findByIdAndUpdate(review._id, { userId: user._id, restaurantId: restaurantParent._id });
             }
+        }
+
+        for (let i = 0; i < createdResponses.length; i++){
+            const restaurant = createdRestaurants[i]
+            const response = createdResponses[i]
+
+            await Response.findByIdAndUpdate(response._id, {ownerId: restaurant._id})
         }
 
         if (createdReviews.length > 1 && createdResponses.length > 0) {

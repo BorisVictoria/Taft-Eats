@@ -3,8 +3,6 @@ import { Input } from '@/components/ui/shadcn/input'
 import ProfileDropdown from '@/components/ui/ProfileDropdown'
 import { Link, useNavigate } from 'react-router-dom'
 
-const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
-
 const Header = () => {
     const [query, setQuery] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -13,8 +11,10 @@ const Header = () => {
     const navigate = useNavigate()
     const token = localStorage.getItem('token')
     const userId = localStorage.getItem('userId')
-    
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
+
     const fetchUserData = async () => {
+        console.log("in fetch")
         if (!userId) return
 
         try {
@@ -32,7 +32,6 @@ const Header = () => {
             setUsername(data.username)
             setAvatarUrl(`${url}/${data.avatar}`)
 
-            console.log('Fetched user data:', data.username, data.avatar)
         } catch (error) {
             console.error('Error fetching user data:', error)
         }
@@ -44,6 +43,8 @@ const Header = () => {
             if (token) {
                 fetchUserData()
             }
+
+            console.log(token)
         }
         checkLoginStatus()
     }, [])
@@ -65,8 +66,13 @@ const Header = () => {
     }
 
     const handleLogout = async () => {
+        let link = `${url}/api/users/logout`
+        if(localStorage.getItem('restaurantId')){
+            link = `${url}/api/restaurants/logout`
+        }
+
         try {
-            const response = await fetch(`${url}/api/users/logout`, {
+            const response = await fetch(link, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -78,6 +84,7 @@ const Header = () => {
             }
             localStorage.removeItem('token')
             localStorage.removeItem('userId')
+            localStorage.removeItem('restaurantId')
             setIsLoggedIn(false)
             navigate('/login')
         } catch (error) {

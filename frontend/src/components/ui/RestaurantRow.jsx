@@ -3,8 +3,16 @@ import { TableCell, TableRow } from '@/components/ui/shadcn/table'
 import { Link } from 'react-router-dom'
 import StarIcon from '@/components/ui/icons/staricon'
 import { Button } from '@/components/ui/shadcn/button'
+import { useNavigate } from 'react-router-dom'
+
 
 const RestaurantRow = ({ restaurant }) => {
+    const navigate = useNavigate();  // Initialize useNavigate hook
+    
+    const handleViewRestaurantClick = () => {
+        navigate(`/restaurants/${restaurant._id}`);
+    };
+
     return (
         <TableRow className='transition duration-150'>
             <TableCell>
@@ -26,8 +34,8 @@ const RestaurantRow = ({ restaurant }) => {
             </TableCell>
             <TableCell>${restaurant.avgPrice.toFixed(2)}</TableCell>
             <TableCell>
-                <Button variant='outline' size='sm'>
-                    View Review
+                <Button variant='outline' size='sm' onClick={handleViewRestaurantClick}>
+                    View Restaurant
                 </Button>
             </TableCell>
         </TableRow>

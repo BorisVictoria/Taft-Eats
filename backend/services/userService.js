@@ -10,7 +10,15 @@ const createUser = async (data) => {
 }
 
 const getUserById = async (id) => {
-    return await User.findById(id).select('-password').populate('reviews')
+    return await User.findById(id)
+        .select('-password')
+        .populate({
+            path: 'reviews',
+            populate: {
+              path: 'replies',
+              model: 'Response',  
+            },
+          });
 }
 
 const updateUser = async (id, data) => {
@@ -54,6 +62,10 @@ const authenticateUser = async (username, password) => {
     return user
 }
 
+const checkTokenValidity = async (token) => {
+    return jwt.verify(token, process.env.JWT_SECRET)
+}
+
 const logoutUser = (token) => {
     tokenBlacklist.push(token)
 }
@@ -66,6 +78,30 @@ const checkUsername = async (username) => {
     return await User.findOne({ username })
 }
 
+const deleteReviewFromUser = async (userId, reviewId) => {
+    const user = await User.findById(userId)
+    
+    if (!user) {
+        throw new Error('User not found')
+    }
+
+    user.reviews = user.reviews.filter(review => review._id.toString() !== reviewId.toString())
+    await user.save()
+
+    return user
+}
+
+const addReviewToUser = async (userId, reviewId) => {
+    const user = await User.findById(userId);
+    user.reviews.push(reviewId); 
+
+    await user.save();
+
+    return { message: 'Review successfully added to user' };
+
+};
+
+
 module.exports = {
     createUser,
     getUserById,
@@ -75,5 +111,8 @@ module.exports = {
     authenticateUser,
     logoutUser,
     isTokenBlacklisted,
-    checkUsername
+    checkUsername,
+    checkTokenValidity,
+    deleteReviewFromUser,
+    addReviewToUser
 }

@@ -92,3 +92,11 @@
         @apply bg-background text-foreground;
     }
 }
+
+.dialog-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.Dialog-overlay {
+background-color: rgba(0, 0, 0, 0.5) !important;
+}

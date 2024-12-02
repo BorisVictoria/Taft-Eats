@@ -12,10 +12,17 @@ const authMiddleware = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         req.user = decoded
+        console.log(req.user)
         next()
     } catch (error) {
-        console.log(error)
-        res.status(401).json({ message: 'Token is not valid' })
+        if (error instanceof jwt.TokenExpiredError) {
+            return res.status(401).json({ message: 'Token has expired' })
+        } else if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({ message: 'Token is not valid' })
+        } else {
+            console.error(error)
+            res.status(500).json({ message: 'An error occurred during authentication' })
+        }
     }
 }
 

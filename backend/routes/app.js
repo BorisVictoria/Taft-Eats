@@ -8,6 +8,11 @@ const path = require('path')
 
 const app = express()
 
+app.use((req, res, next) => {
+    console.log(`${req.method} request made to: ${req.originalUrl}`);
+    next();  // Pass control to the next middleware/route handler
+});
+
 app.use(express.json())
 app.use(
     cors({

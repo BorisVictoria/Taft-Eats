@@ -9,7 +9,10 @@ const reviewSchema = new Schema({
     username: { type: String, required: true }, // Username of the reviewer
     date: { type: Date, default: Date.now }, // Timestamp for when the review was created
     title: { type: String, required: true }, // Title of the review
-    isEdited: { type: Date, default: null }
+    isEdited: { type: Date, default: null },
+    userId: { type: Schema.Types.ObjectId, ref: 'user' },
+    restaurantId: { type: Schema.Types.ObjectId, ref: 'restaurant' },
+
 })
 
 module.exports = mongoose.model('Review', reviewSchema)

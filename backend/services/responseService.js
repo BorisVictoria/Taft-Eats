@@ -10,7 +10,7 @@ const getResponseById = async (id) => {
 }
 
 const updateResponse = async (id, data) => {
-    return await Response.findByIdAndUpdate(id, data, { new: true })
+    return await Response.findByIdAndUpdate(id, data)
 }
 
 const deleteResponse = async (id) => {

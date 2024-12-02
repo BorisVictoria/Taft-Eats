@@ -1,10 +1,13 @@
 import { Card, CardContent } from '@/components/ui/shadcn/card'
 import ReviewHeader from './ReviewHeader'
 import ReviewFooter from './ReviewFooter'
+import ReplySection from './ReplySection'
 
 const ReviewContentText = ({ review }) => {
-    return <p className='ml-5 mb-7 mr-5 text-gray-700 text-sm'>{review.review}</p>
+    return <p className='ml-5 mb-0 mr-5 text-gray-700 text-sm'>{review.review}</p>
 }
+
+const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
 const ReviewContentGrid = ({ review }) => {
     return (
@@ -20,10 +23,10 @@ const ReviewContentGrid = ({ review }) => {
             {review.media.map((image, index) => (
                 <img
                     key={index}
-                    src={image}
+                    src={`${url}/${image}`}
                     alt={`Review image ${index + 1}`}
-                    width={400} //  to 150
-                    height={300} // Set fixed height to 300
+                    width={400}
+                    height={300} 
                     className='rounded-lg object-cover'
                 />
             ))}
@@ -42,12 +45,29 @@ const Review = ({
     handleEditReview,
     handleDeleteReview
 }) => {
+
+    const isLoggedIn = !!localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    const isReviewOwner = userId && review && review.userId === userId;  
+    const restaurantId = localStorage.getItem('restaurantId')
+
     return (
         <Card key={review._id} className='mb-6 p-5'>
             <ReviewHeader review={review} />
             <CardContent>
                 <ReviewContentText review={review} />
                 {review.media.length > 0 && <ReviewContentGrid review={review} />}
+                {review.replies && (
+                    <ReplySection 
+                        replies={review.replies}
+                        restaurantName="Restaurant Name"
+                        
+                        isLoggedIn={isLoggedIn}
+                        userId={userId}
+                        isReviewOwner={isReviewOwner}
+                        restaurantId={restaurantId}
+                    />
+                )}
             </CardContent>
             <ReviewFooter
                 isDeleteReviewDialogOpen={isDeleteReviewDialogOpen}
@@ -60,6 +80,11 @@ const Review = ({
                 setIsEditReviewDialogOpen={setIsEditReviewDialogOpen}
                 handleDeleteReview={handleDeleteReview}
                 handleEditReview={handleEditReview}
+                // states
+                isLoggedIn={isLoggedIn}
+                userId={userId}
+                isReviewOwner={isReviewOwner}
+                restaurantId={restaurantId}
             />
         </Card>
     )
