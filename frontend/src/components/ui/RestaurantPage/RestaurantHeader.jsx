@@ -1,4 +1,3 @@
-
 import { Star } from 'lucide-react'
 import { Badge } from "@/components/ui/shadcn/badge"
 
@@ -37,9 +36,10 @@ const  RestaurantHeader = ({ restaurant, reviewCount }) => {
               <span className="text-gray-500">{reviewCount} reviews</span>
             </div>
             <div className="flex items-center space-x-2">
-            {restaurant.cuisine.map((cuisine, index) => (
+            {restaurant?.cuisine?.length > 0 ? restaurant.cuisine.map((cuisine, index) => (
               <Badge key={index} variant="secondary">{cuisine}</Badge>
-            ))}
+              )) : <div></div>
+            }
 
               <span className="text-gray-500">{restaurant.priceRange}</span>
             </div>
