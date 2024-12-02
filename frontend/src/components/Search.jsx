@@ -155,15 +155,24 @@ const SearchResult = () => {
                     </Popover>
 
                     <CardContent>
-                        <RestaurantTable
-                            restaurants={currentRestaurants}
-                            sortCriteria={sortCriteria}
-                            sortOrder={sortOrder}
-                            setSortCriteria={setSortCriteria}
-                            setSortOrder={setSortOrder}
-                        />
-                        <PaginationControls currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+                        {currentRestaurants.length > 0 ? (
+                            <>
+                                <RestaurantTable
+                                    restaurants={currentRestaurants}
+                                    sortCriteria={sortCriteria}
+                                    sortOrder={sortOrder}
+                                    setSortCriteria={setSortCriteria}
+                                    setSortOrder={setSortOrder}
+                                />
+                                <PaginationControls currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+                            </>
+                        ) : (
+                            <div className="text-center text-gray-500 py-6">
+                                No results found for "{query}". Try adjusting the filters or search criteria.
+                            </div>
+                        )}
                     </CardContent>
+
                 </Card>
             </main>
         </div>

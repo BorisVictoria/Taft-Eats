@@ -63,25 +63,24 @@ const LoginForm = ({ isFlipped, setIsFlipped }) => {
 
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('restaurantId', data.userId)
-                           
+                    navigate(`/restaurants/${data.userId}`)          
                 }
             } else {
                 const data = await response.json()
 
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('userId', data.userId)
-    
+                navigate('/profile')
             }
 
 
-            navigate('/')
         } catch (error) {
             setError(error.message)
         }
     }
 
     useEffect(() => {
-        const token = localStorage.getItem('token') // Retrieve token from local storage
+        const token = localStorage.getItem('token')
         if (token) {
             navigate('/')
         }
