@@ -7,6 +7,7 @@ import RestaurantTable from './ui/RestaurantTable'
 import PaginationControls from './ui/PaginationControls'
 
 const ITEMS_PER_PAGE = 5
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
 const RestaurantFilter = ({ selectedCuisine, setSelectedCuisine, minRating, setMinRating, maxPrice, setMaxPrice }) => {
     const cuisines = ['All', 'Japanese', 'Italian', 'American', 'Indian', 'Unknown']
