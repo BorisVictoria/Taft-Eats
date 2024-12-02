@@ -3,6 +3,8 @@ import { Star } from 'lucide-react'
 import { Badge } from "@/components/ui/shadcn/badge"
 
 const  RestaurantHeader = ({ restaurant, reviewCount }) => {
+  const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
+
   return (
     <div className="border-b mb-10">
       <div className="max-w-5xl mx-auto px-4 py-6">
