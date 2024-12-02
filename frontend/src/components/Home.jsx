@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { Star, Coffee, Wifi, ParkingCircle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const amenityIcons = {
     1: <Coffee className='w-4 h-4' />,
@@ -13,13 +14,12 @@ const amenityIcons = {
     3: <ParkingCircle className='w-4 h-4' />
 }
 
-const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
-
 const Home = () => {
     const cuisines = ['All', 'Italian', 'Chinese', 'Mexican', 'Japanese', 'Filipino', 'American']
 
     const [restaurants, setRestaurants] = useState([])
     const [selectedCuisine, setSelectedCuisine] = useState('All')
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
     useEffect(() => {
         const fetchRestaurants = async () => {
@@ -86,7 +86,7 @@ const Home = () => {
                                         transition={{ duration: 0.2 }}
                                     >
                                         <img
-                                            src={restaurant.media}
+                                            src={`${url}/${restaurant.media}`}
                                             alt={`${restaurant.name} restaurant`}
                                             className='w-full h-48 object-cover'
                                         />
@@ -101,16 +101,9 @@ const Home = () => {
                                             <p className='text-gray-600 mb-4'>{restaurant.cuisine}</p>
                                             <p className='text-sm text-gray-500 mb-4 line-clamp-2'>{restaurant.description}</p>
 
-                                            <div className='flex space-x-2 mb-4'>
-                                                {restaurant.amenities.map((amenity) => (
-                                                    <div key={amenity} className='bg-gray-200 p-1 rounded'>
-                                                        {amenityIcons[amenity]}
-                                                    </div>
-                                                ))}
-                                            </div>
                                             <div className='mt-4'>
                                                 <Link
-                                                    to={`/details/${restaurant.id}`}
+                                                    to={`/restaurants/${restaurant._id}`}
                                                     className='text-primary hover:underline font-semibold'
                                                 >
                                                     View Details
@@ -129,17 +122,8 @@ const Home = () => {
                     <div className='flex flex-col items-center justify-between md:flex-row'>
                         <p className='mb-4 md:mb-0'>&copy; 2024 Taft Eats. All rights reserved.</p>
                         <nav className='flex gap-4'>
-                            <Link to='/about' className='hover:text-gray-400'>
-                                About
-                            </Link>
-                            <Link to='/contact' className='hover:text-gray-400'>
-                                Contact
-                            </Link>
-                            <Link to='/privacy' className='hover:text-gray-400'>
-                                Privacy Policy
-                            </Link>
-                            <Link to='/terms' className='hover:text-gray-400'>
-                                Terms of Service
+                            <Link to='/restaurant-register' className='hover:text-gray-400'>
+                                Add Your Restaurant
                             </Link>
                         </nav>
                     </div>

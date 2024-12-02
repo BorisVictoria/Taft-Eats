@@ -4,11 +4,15 @@ import { Star, Clock } from 'lucide-react'
 
 const ReviewTimeData = ({ review }) => {
     return (
-        <div className='flex items-center text-sm text-gray-500 mt-1 text-xs'>
-            <Clock className='w-2.5 h-2.5 mr-1' />
-            {new Date(review.date).toLocaleString()}
-            {review.isEdited && <span className='ml-2 text-gray-500 text-xs'>(Edited: {new Date(review.editedAt).toLocaleString()})</span>}
-        </div>
+    <div className='flex items-center text-sm text-gray-500 mt-1 text-xs'>
+        <Clock className='w-2.5 h-2.5 mr-1' />
+        {new Date(review.isEdited || review.date).toLocaleString()}
+        {review.isEdited && (
+            <span className='ml-2 text-gray-500 text-xs'>
+                (Edited)
+            </span>
+        )}
+    </div>
     )
 }
 

@@ -16,15 +16,13 @@ const EditProfile = ({ user, isEditDialogOpen, setIsEditDialogOpen, setUserData 
     const [error, setError] = useState('')
     const [usernameExists, setUsernameExists] = useState(false)
     const navigate = useNavigate()
-    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
         setUserData((prevData) => ({ ...prevData, [id]: value }))
-        console.log(id, value, user, user)
     }
 
-    console.log(user)
     useEffect(() => {
         const checkUsernameExists = async () => {
             if (user.newUsername && user.newUsername !== user.username) {
@@ -84,7 +82,6 @@ const EditProfile = ({ user, isEditDialogOpen, setIsEditDialogOpen, setUserData 
                 if (!response.ok) {
                     throw new Error('Failed to update profile')
                 }
-                console.log('here')
                 window.location.reload()
             } catch (error) {
                 console.error('Error updating profile:', error)

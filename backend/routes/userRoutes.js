@@ -25,5 +25,5 @@ router.put('/:id', authMiddleware, avatarUpload.single('avatar'), userController
 router.delete('/:id', authMiddleware, userController.deleteUser) // Protected route to delete user
 router.post('/logout', authMiddleware, userController.logoutUser) // Protected route to logout user
 router.get('/check-username/:username', userController.checkUsername)
-
+router.post('/checkToken', userController.checkToken)
 module.exports = router

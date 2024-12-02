@@ -13,12 +13,12 @@ const LoginForm = ({ isFlipped, setIsFlipped }) => {
     }
 
     const [formData, setFormData] = useState(initialFormData)
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
     const navigate = useNavigate()
 
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
-    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
@@ -29,31 +29,50 @@ const LoginForm = ({ isFlipped, setIsFlipped }) => {
         setPasswordVisible((prevVisible) => !prevVisible)
     }
 
+    const triggerLogin = async (link) => {
+        const response = await fetch(link, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: formData.loginUsername,
+                password: formData.loginPassword
+            }),
+            credentials: 'include'
+        })
+
+        return response
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
         try {
-            const response = await fetch(`${url}/api/users/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: formData.loginUsername,
-                    password: formData.loginPassword
-                }),
-                credentials: 'include'
-            })
+            let response = await triggerLogin(`${url}/api/users/login`)
+
 
             if (!response.ok) {
+                response = await triggerLogin(`${url}/api/restaurants/login`)
+                
+                if(!response.ok){
+                    const data = await response.json()
+                    throw new Error(data.message || 'Login failed')           
+                } else {
+                    const data = await response.json()
+
+                    localStorage.setItem('token', data.token)
+                    localStorage.setItem('restaurantId', data.userId)
+                           
+                }
+            } else {
                 const data = await response.json()
-                throw new Error(data.message || 'Login failed')
+
+                localStorage.setItem('token', data.token)
+                localStorage.setItem('userId', data.userId)
+    
             }
 
-            const data = await response.json()
-
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('userId', data.userId)
 
             navigate('/')
         } catch (error) {

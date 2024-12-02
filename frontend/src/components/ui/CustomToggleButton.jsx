@@ -6,7 +6,7 @@ const CustomToggleButton = ({ isActive, onClick, label }) => {
             type='button'
             onClick={onClick}
             className={`p-2 rounded transition-colors duration-200 ease-in-out ${
-                isActive ? 'bg-muted text-white' : 'bg-gray-200 text-black'
+                isActive ? 'bg-primary text-white' : 'bg-gray-200 text-black'
             }`}
         >
             {label}

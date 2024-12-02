@@ -1,4 +1,4 @@
-const PLACEHOLDER_IMAGE = 'https://fastly.picsum.photos/id/116/3504/2336.jpg?hmac=C46vgpj3R407e8pCyy8NhIsNaBZCjb4r5d71keNgMJY'
+const PLACEHOLDER_IMAGE = 'uploads/media/dummy-image.jpg'
 
 const restaurants = [
     {
@@ -8,9 +8,16 @@ const restaurants = [
         averageCost: 20,
         media: PLACEHOLDER_IMAGE,
         description: 'The best pasta dishes in town.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',  
+
         amenities: [1, 2],
         username: 'pastaLover',
         password: 'securePassword1'
+        
     },
     {
         name: 'Sushi Central',
@@ -19,6 +26,13 @@ const restaurants = [
         averageCost: 25,
         media: PLACEHOLDER_IMAGE,
         description: 'Fresh sushi made daily.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [1, 3],
         username: 'sushiFan',
         password: 'securePassword2'
@@ -30,6 +44,13 @@ const restaurants = [
         averageCost: 15,
         media: PLACEHOLDER_IMAGE,
         description: 'Juicy burgers with a variety of toppings.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [2, 4],
         username: 'burgerGuy',
         password: 'securePassword3'
@@ -41,6 +62,13 @@ const restaurants = [
         averageCost: 12,
         media: PLACEHOLDER_IMAGE,
         description: 'Authentic Mexican tacos and burritos.',
+        
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [1, 3],
         username: 'tacoMaster',
         password: 'securePassword4'
@@ -52,6 +80,13 @@ const restaurants = [
         averageCost: 18,
         media: PLACEHOLDER_IMAGE,
         description: 'Spicy curries and flavorful dishes.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [2, 5],
         username: 'curryQueen',
         password: 'securePassword5'
@@ -63,6 +98,12 @@ const restaurants = [
         averageCost: 8,
         media: PLACEHOLDER_IMAGE,
         description: 'Heavenly desserts and chocolates.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+     
         amenities: [1],
         username: 'dessertLover',
         password: 'securePassword6'
@@ -74,6 +115,12 @@ const restaurants = [
         averageCost: 22,
         media: PLACEHOLDER_IMAGE,
         description: 'Grilled meats and BBQ specialties.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+     
         amenities: [2, 3],
         username: 'grillKing',
         password: 'securePassword7'
@@ -85,6 +132,12 @@ const restaurants = [
         averageCost: 10,
         media: PLACEHOLDER_IMAGE,
         description: 'Tasty vegetarian dishes for everyone.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+     
         amenities: [1, 4],
         username: 'veggieLover',
         password: 'securePassword8'
@@ -96,6 +149,13 @@ const restaurants = [
         averageCost: 30,
         media: PLACEHOLDER_IMAGE,
         description: 'Fresh seafood caught daily.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [2, 3],
         username: 'seafoodFan',
         password: 'securePassword9'
@@ -107,6 +167,13 @@ const restaurants = [
         averageCost: 5,
         media: PLACEHOLDER_IMAGE,
         description: 'Great coffee and cozy atmosphere.',
+
+        address: '123 Pasta Street, Noodle City, 12345',
+        phone: '(555) 123-4567',
+        website: 'https://pastaparadise.com',
+        hours: 'Mon-Sat 11:00 AM - 10:00 PM, Sun 12:00 PM - 9:00 PM',
+ 
+        
         amenities: [1, 4],
         username: 'coffeeAddict',
         password: 'securePassword10'

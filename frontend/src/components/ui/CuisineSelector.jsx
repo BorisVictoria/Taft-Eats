@@ -10,7 +10,7 @@ const CuisineSelector = ({ id, formData, setFormData }) => {
 
     return (
         <div className='space-y-4'>
-            <h2 className='block text-left text-2xl font-bold'>Choose your cuisines</h2>
+            <h2 className='block text-left text-2xl font-bold'>Choose your cuisines<span className='text-red-500'>*</span></h2>
             <div className='grid grid-cols-2 gap-4'>
                 {['Italian', 'Chinese', 'Mexican', 'Japanese', 'Filipino', 'American'].map((cuisine) => (
                     <CustomToggleButton

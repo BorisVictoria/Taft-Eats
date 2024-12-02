@@ -20,11 +20,11 @@ const RegistrationForm = ({ isFlipped, setIsFlipped }) => {
     }
 
     const [formData, setFormData] = useState(initialFormData)
+    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : import.meta.env.VITE_BACKEND_URL
 
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
     const [usernameExists, setUsernameExists] = useState(false)
-    const url = import.meta.env.VITE_PRODUCTION === "true" ? import.meta.env.VITE_PRODUCTION_BACKEND_URL : process.env.VITE_BACKEND_URL
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
