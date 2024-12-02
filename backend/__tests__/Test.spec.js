@@ -1,18 +1,18 @@
 //run test by cd backend then npm test
 const sinon = require('sinon');
 
-const ResponseModel = require('../models/Response');
+const ResponseModel = require('../models/response');
 const ResponseController = require('../services/responseService');
 
-const RestaurantModel = require('../models/Restaurant');
+const RestaurantModel = require('../models/restaurant');
 const RestaurantController = require('../services/restaurantService');
 
 
-const ReviewModel = require('../models/Review');
+const ReviewModel = require('../models/review');
 const ReviewController = require('../services/reviewService');
 
 
-const UserModel = require('../models/User');
+const UserModel = require('../models/user');
 const UserController = require('../services/userService');
 
 describe('response testing', () => {
