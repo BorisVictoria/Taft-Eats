@@ -41,7 +41,6 @@ const Home = () => {
     const filteredRestaurants =
         selectedCuisine === 'All' ? restaurants : restaurants.filter((restaurant) => restaurant.cuisine[0] === selectedCuisine)
 
-    console.log(filteredRestaurants)
     return (
         <div className='flex flex-col min-h-screen'>
             <Header />

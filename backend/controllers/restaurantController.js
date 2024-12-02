@@ -7,16 +7,16 @@ const extractFilePath = (filePath) => {
     return filePath.split('public\\')[1]
 }
 
-
 const createRestaurant = async (req, res, next) => {
     try {
         const restaurantData = {
             ...req.body,
-            media: req.file ? extractFilePath(req.file.path) : null
+            media: req.file ? req.file.path.slice(7) : null
         }
+
+        console.log(req.file.path.slice(7))
         restaurantData['cuisine'] = JSON.parse(restaurantData['cuisine'])
         restaurantData['amenities'] = JSON.parse(restaurantData['amenities'])
-        
         console.log(restaurantData)
         const restaurant = await restaurantService.createRestaurant(restaurantData)
         res.status(201).json(restaurant)
@@ -36,9 +36,9 @@ const getRestaurant = async (req, res, next) => {
 
 const getAllRestaurants = async (req, res, next) => {
     try {
-        const restaurants = (await restaurantService.getAllRestaurants()).slice(0, 9)
+        const restaurants = await restaurantService.getAllRestaurants()
         res.json(restaurants)
-    } catch (error) {
+    } catch (error) {s
         next(error)
     }
 }

@@ -9,7 +9,7 @@ const createUser = async (req, res, next) => {
     try {
         const userData = {
             ...req.body,
-            avatar: req.file ? extractFilePath(req.file.path) : null
+            avatar: req.file ? req.file.path.slice(7) : null
         }
         userData['cuisines'] = JSON.parse(userData['cuisines'])
 
