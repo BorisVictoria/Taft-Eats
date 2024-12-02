@@ -45,7 +45,7 @@ const About = () => {
           <h2 className="text-3xl font-semibold text-gray-800">Privacy Policy</h2>
           <p className="mt-4 text-lg text-gray-600">
             Your privacy is important to us. At Taft Eats, we are committed to protecting your personal information.
-            Our Privacy Policy outlines how we collect, use, and safeguard your data. You can read our full policy <a href="/privacy-policy" className="text-blue-600 hover:underline">here</a>.
+            Our Privacy Policy outlines how we collect, use, and safeguard your data. You can read our full policy here.
           </p>
         </div>
 
@@ -54,7 +54,7 @@ const About = () => {
           <h2 className="text-3xl font-semibold text-gray-800">Terms of Service</h2>
           <p className="mt-4 text-lg text-gray-600">
             By using Taft Eats, you agree to our terms of service. These terms outline the rules and regulations for using our platform.
-            Please read them carefully. For the full details, visit our <a href="/terms-of-service" className="text-blue-600 hover:underline">Terms of Service</a> page.
+            Please read them carefully. For the full details, visit our Terms of Service page.
           </p>
         </div>
 
@@ -69,9 +69,9 @@ const About = () => {
             <li><strong>Phone:</strong> +1 (123) 456-7890</li>
             <li><strong>Address:</strong> Goks, Taft</li>
             <li><strong>Follow us:</strong> 
-              <a href="https://twitter.com/tafteats" className="text-blue-600 hover:underline">Twitter</a>, 
-              <a href="https://facebook.com/tafteats" className="text-blue-600 hover:underline">Facebook</a>, 
-              <a href="https://instagram.com/tafteats" className="text-blue-600 hover:underline">Instagram</a>
+              <a href="https://twitter.com/tafteats" className="text-blue-600 hover:underline">  Twitter</a>,  
+              <a href="https://facebook.com/tafteats" className="text-blue-600 hover:underline">  Facebook</a>, 
+              <a href="https://instagram.com/tafteats" className="text-blue-600 hover:underline"> Instagram</a>
             </li>
           </ul>
         </div>
