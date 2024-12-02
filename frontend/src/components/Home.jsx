@@ -39,8 +39,9 @@ const Home = () => {
     }, [])
 
     const filteredRestaurants =
-        selectedCuisine === 'All' ? restaurants : restaurants.filter((restaurant) => restaurant.cuisine === selectedCuisine)
+        selectedCuisine === 'All' ? restaurants : restaurants.filter((restaurant) => restaurant.cuisine[0] === selectedCuisine)
 
+    console.log(filteredRestaurants)
     return (
         <div className='flex flex-col min-h-screen'>
             <Header />
@@ -80,7 +81,7 @@ const Home = () => {
                             >
                                 {filteredRestaurants.map((restaurant) => (
                                     <motion.div
-                                        key={restaurant.id}
+                                        key={restaurant._id}
                                         className='bg-white rounded-lg shadow-lg overflow-hidden'
                                         whileHover={{ scale: 1.03 }}
                                         transition={{ duration: 0.2 }}
