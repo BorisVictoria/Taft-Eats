@@ -125,6 +125,9 @@ const Home = () => {
                             <Link to='/restaurant-register' className='hover:text-gray-400'>
                                 Add Your Restaurant
                             </Link>
+                            <Link to='/about' className='hover:text-gray-400'>
+                                About
+                            </Link>
                         </nav>
                     </div>
                 </div>

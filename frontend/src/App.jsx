@@ -8,6 +8,7 @@ import SearchResult from './components/Search';
 import UserProfile from './components/ViewProfile';
 import RestaurantAuth from './components/RestaurantAuth';
 import RestaurantRegistration from './components/RestaurantRegistration';
+import About from './components/About';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                                 <Route path="/search" element={<SearchResult />} />
                                 <Route path="/profile" element={<UserProfile />} />
                                 <Route path="/restaurant-register" element={<RestaurantRegistration />} />
+                                <Route path="/about" element={<About />} />
                             </Routes>
                         </PrivateRoute>
                     }
