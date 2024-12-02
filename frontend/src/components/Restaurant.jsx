@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import Header from "@/components/Header";
 import Review from './ui/ReviewCard'
 import ReviewDialog from './ui/ReviewDialog';
-
+import { Input } from '@/components/ui/shadcn/input';
 
 const Restaurant = () => {
   const { id } = useParams();  
@@ -24,6 +24,28 @@ const Restaurant = () => {
   const [reviews, setReviews] = useState(null);  // State for a single restaurant
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+  const [query, setQuery] = useState(''); // State for search query
+  const [filteredReviews, setFilteredReviews] = useState(null);  // State for filtered reviews
+
+  const SearchIcon = (props) => (
+    <svg
+        {...props}
+        xmlns='http://www.w3.org/2000/svg'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+    >
+        <circle cx='11' cy='11' r='8' />
+        <path d='m21 21-4.3-4.3' />
+    </svg>
+)
+
+
   const handleEditReview = (id, newContent) => {
     setReviews(
         reviews.map((review) => (review.id === id ? { ...review, content: newContent, editedAt: new Date().toISOString() } : review))
@@ -35,6 +57,21 @@ const Restaurant = () => {
       setReviews(reviews.filter((review) => review.id !== id))
       setIsDeleteReviewDialogOpen(false)
   }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    filterReview();
+  };
+
+  const filterReview = () => {
+    const lowerQuery = query.toLowerCase();
+    const filtered = reviews.filter((review) =>
+      review.review.toLowerCase().includes(lowerQuery)
+    );
+    setFilteredReviews(filtered)
+    
+  }
+
 
 
 
@@ -51,6 +88,7 @@ const Restaurant = () => {
         console.log('Received data:', data);
         setRestaurant(data);
         setReviews(data.reviews)
+        setFilteredReviews(reviews)
         
       } else {
         console.error('Failed to fetch restaurant:', response.status);
@@ -76,7 +114,16 @@ const Restaurant = () => {
       console.log('Updated restaurant reviews:', reviews);
       console.log('Updated restaurant reviews:', reviews.length);
     }
-  }, [reviews]); // This effect will run whenever the `restaurant` state is updated
+  }, [reviews]); 
+
+  useEffect(() => {
+    if (query === "") {
+      setFilteredReviews(reviews); 
+    } else {
+      filterReview()
+    }
+  }, [query, reviews]);
+
   
   console.log('Current restaurant state:', restaurant);
 
@@ -104,10 +151,21 @@ const Restaurant = () => {
                   <AmenitiesSection amenities={restaurant.amenities} />
                   <Separator className="my-8" />
                   <h2 className='text-2xl font-bold mb-4'>Reviews</h2>
+                  {/* Search bar */}
+                  <form onSubmit={handleSearchSubmit} className='relative flex-1 max-w-full mb-5'>
+                      <SearchIcon className='absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground' />
+                      <Input
+                        name='search'
+                        type='search'
+                        placeholder='Search for reviews...'
+                        className='w-full pl-10 pr-4 rounded-md bg-white focus:outline-none'
+                        onChange={(e) => setQuery(e.target.value)}
+                      />
+                    </form>
 
-                  {
-                    reviews && reviews.length > 0 ? (
-                      reviews.map((review) => (
+                    {
+                    filteredReviews && filteredReviews.length > 0 ? (
+                      filteredReviews.map((review) => (
                         <Review
                             key={review._id} // Make sure to include a unique key for each review
                             isEditReviewDialogOpen={isEditReviewDialogOpen}
@@ -122,7 +180,7 @@ const Restaurant = () => {
                         />
                       ))
                     ) : (
-                      <p>No reviews available.</p>
+                      <p>No reviews match your search.</p>
                     )
                   }
                 </div>
